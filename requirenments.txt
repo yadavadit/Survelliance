@@ -1,0 +1,3 @@
+ultralytics
+face-recognition
+opencv-python
