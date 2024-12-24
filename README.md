@@ -2,10 +2,10 @@
 A lightweight, efficient surveillance application capable of detecting known and unknown faces, as well as objects such as weapons and people. It intelligently excludes objects or known faces displayed on screens like phones and laptops, making it highly versatile for various surveillance scenarios.
 
 ## Key Features
-* Face Detection: Identifies known and unknown faces with high accuracy.
-* Object Detection: Detects objects, including weapons and individuals, not limited to faces.
-* Smart Exclusion: Automatically excludes faces or objects displayed on device screens (e.g., phones, laptops).
-* Video Frame Integration: Easily integrates to process frames from videos with its lightweight model.
+* *Face Detection*: Identifies known and unknown faces with high accuracy.
+* *Object Detection*: Detects objects, including weapons and individuals, not limited to faces.
+* *Smart Exclusion*: Automatically excludes faces or objects displayed on device screens (e.g., phones, laptops).
+* *Video Frame Integration*: Easily integrates to process frames from videos with its lightweight model.
 
 ## Setup
 1. Install dependencies:
