@@ -15,7 +15,7 @@ def detect(file):
         detections.append((cat_name, conf, x1, y1, x2, y2))
     return detections
 
-def label_image(image, detections, threshold=0.5):
+def label_image(image, detections, threshold=0.7):
     for (cat_name, conf, x1, y1, x2, y2) in detections:
         if conf >= threshold:
             cv2.rectangle(image, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)

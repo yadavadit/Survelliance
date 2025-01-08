@@ -28,6 +28,18 @@ def is_inside(inner, outer):
     x1_outer, y1_outer, x2_outer, y2_outer = outer
     return x1_inner > x1_outer and y1_inner > y1_outer and x2_inner < x2_outer and y2_inner < y2_outer
 
+def get_risk(filtered_face_names, filtered_weapon_detections):
+    if 'Unknown' in filtered_face_names:  
+        for (cat_name, conf, x1, y1, x2, y2) in filtered_weapon_detections:
+            if conf > 0.7:
+                return 'Very High'  
+        return 'High'  
+    else:  
+        for (cat_name, conf, x1, y1, x2, y2) in filtered_weapon_detections:
+            if conf > 0.7:
+                return 'Moderate'  
+        return 'Low'  
+
 def process_image(image_path):
     image = cv2.imread(image_path)
 
@@ -51,14 +63,26 @@ def process_image(image_path):
         if not any(is_inside((detection[2], detection[3], detection[4], detection[5]), screen_bbox)
                for screen_bbox in screen_bboxes)
     ]
+
+    filtered_weapon_detections = [
+        detection for detection in weapon_detections
+        if not any(is_inside((detection[2], detection[3], detection[4], detection[5]), screen_bbox)
+               for screen_bbox in screen_bboxes)
+    ]    
     
+    risk_value = get_risk(filtered_face_names, filtered_weapon_detections)
+    risk = f"Risk : {risk_value}"
+
     processed_image = recognizor.label_image(image, filtered_face_locations, filtered_face_names)
     processed_image = detector.label_image(image, filtered_detections)
-    processed_image = weapon_detector.label_image(image, weapon_detections)
+    processed_image = weapon_detector.label_image(image, filtered_weapon_detections)
+    font = cv2.FONT_HERSHEY_DUPLEX
+    cv2.putText(processed_image, risk, (40,40), font, 1.5, (255, 255, 255), 1)
+
     return processed_image
 
 def main():
-    image_file = "knife.jpg"
+    image_file = "aditi_knife.jpg"
     image_path = os.path.join('input/', image_file)
     try:
         processed_image = process_image(image_path)
