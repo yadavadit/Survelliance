@@ -1,5 +1,6 @@
 import os
 import detector
+import weapon_detector
 import recognizor
 import cv2
 
@@ -27,15 +28,13 @@ def is_inside(inner, outer):
     x1_outer, y1_outer, x2_outer, y2_outer = outer
     return x1_inner > x1_outer and y1_inner > y1_outer and x2_inner < x2_outer and y2_inner < y2_outer
 
-def process_image(image_file, input_dir='input/', output_dir='processed/'):
-    image_path = os.path.join(input_dir, image_file)
-    save_path = os.path.join(output_dir, 'processed_' + image_file)
-    
+def process_image(image_path):
     image = cv2.imread(image_path)
 
     known_face_encodings, known_face_names = recognizor.init()
     face_names, face_locations = recognizor.recognize(image, known_face_encodings, known_face_names)
     detections = detector.detect(image_path)
+    weapon_detections = weapon_detector.detect(image_path)
     
     objects_of_interest = ['cell phone', 'laptop']
     screen_bboxes = [
@@ -53,19 +52,21 @@ def process_image(image_file, input_dir='input/', output_dir='processed/'):
                for screen_bbox in screen_bboxes)
     ]
     
-    image = recognizor.label_image(image, filtered_face_locations, filtered_face_names)
-    image = detector.label_image(image, filtered_detections)
-    cv2.imwrite(save_path, image)
-    
-    return save_path
+    processed_image = recognizor.label_image(image, filtered_face_locations, filtered_face_names)
+    processed_image = detector.label_image(image, filtered_detections)
+    processed_image = weapon_detector.label_image(image, weapon_detections)
+    return processed_image
 
 def main():
-    image_file = "screen_face.jpg"
+    image_file = "knife.jpg"
+    image_path = os.path.join('input/', image_file)
     try:
-        processed_path = process_image(image_file)
-        print(f"Image processed successfully. Saved to: {processed_path}")
+        processed_image = process_image(image_path)
+        print("Image processed successfully")
     except Exception as e:
         print(f"Error processing image: {str(e)}")
+    save_path = os.path.join('processed/', 'processed_' + image_file)
+    cv2.imwrite(save_path, processed_image)
 
 if __name__ == "__main__":
     main()
