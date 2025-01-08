@@ -24,7 +24,7 @@ streamlit run app.py
 1. Update the file name in the main function of process.py.
 2. Run the script:
 ```bash
-python recognizor.py
+python process.py
 ```
 
 ### To Recognize Faces in an Image
