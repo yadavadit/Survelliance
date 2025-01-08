@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 2. Add images of known people to the known_faces folder.
 
-3. Start webcam and process frames
+3. Open webcam and start Survelliance
 ```bash
 python video.py
 ```
