@@ -27,28 +27,28 @@ streamlit run app.py
 ```
 
 ## Standalone scripts
-### To Process an Image with the provided python scripts
+### 1. To Process an Image with the provided python scripts
 1. Update the file name in the main function of process.py.
 2. Run the script:
 ```bash
 python process.py
 ```
 
-### To Recognize Faces in an Image
+### 2. To Recognize Faces in an Image
 1. Update the file name in the main function of recognizor.py.
 2. Run the script:
 ```bash
 python recognizor.py
 ```
 
-### To Detect Person and other common objects in an Image
+### 3. To Detect Person and other common objects in an Image
 Update the file name in the main function of detector.py.
 Run the script:
 ```bash
 python detector.py
 ```
 
-### To Detect Weapons in an Image
+### 4. To Detect Weapons in an Image
 Update the file name in the main function of detector.py.
 Run the script:
 ```bash
