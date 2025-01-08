@@ -6,6 +6,7 @@ A lightweight, efficient surveillance application capable of detecting known and
 * *Person Detection*: Detects individuals, not limited to faces, Yolo v10 model.
 * *Weapon Detection*: Detects weapons, Yolo v8 model fine-tuned on weapons dataset.
 * *Smart Exclusion*: Automatically excludes faces or objects displayed on device screens (e.g., phones, laptops).
+* *Risk Assessment*: Asses risk based on known/unknown faces & weapons 
 * *Video Frame Integration*: Easily integrates to process frames from videos with its lightweight model.
 
 ## Setup
@@ -26,6 +27,24 @@ python video.py
 streamlit run app.py
 ```
 
+## Risk Levels
+1. Very High:
+* Triggered when an unknown person is detected and a weapon is identified with high confidence (> 0.7).
+* Indicates an immediate threat requiring urgent action.
+
+2. High:
+* Triggered when an unknown person is detected, but no weapons are identified with high confidence.
+* Represents a potential risk due to the presence of an unidentified individual.
+
+3. Moderate:
+* Triggered when no unknown person is detected, but a weapon is identified with high confidence (> 0.7).
+* Suggests caution due to the presence of a weapon in the scene.
+
+4. Low:
+* Triggered when no unknown person is detected and no weapons are identified with high confidence.
+* Represents a safe or low-risk scenario.
+
+  
 ## Standalone scripts
 ### 1. To Process an Image with the provided python scripts
 1. Update the file name in the main function of process.py.
